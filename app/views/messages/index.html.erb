@@ -1,0 +1,14 @@
+<h1>Chat Room</h1>
+
+<div id="messages">
+  <%= render @messages %>
+</div>
+
+<%= form_with(model: @message, data: { turbo: false }) do |form| %>
+  <div>
+    <%= form.text_area :content, rows: 3, placeholder: "Ketik pesan..." %>
+  </div>
+  <div>
+    <%= form.submit "Kirim" %>
+  </div>
+<% end %>
