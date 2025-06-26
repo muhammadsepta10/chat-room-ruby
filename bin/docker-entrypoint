@@ -1,7 +1,8 @@
-#!/bin/bash -e
-# echo "🚀 docker-entrypoint running..."
+#!/bin/bash
+set -e
 
-set -x
+echo "🚀 Starting entrypoint..."
+echo "🌍 RAILS_ENV=${RAILS_ENV}"
 
 # Enable jemalloc
 if [ -z "${LD_PRELOAD+x}" ]; then
@@ -9,14 +10,14 @@ if [ -z "${LD_PRELOAD+x}" ]; then
   export LD_PRELOAD
 fi
 
-# echo "🌐 DATABASE_URL=${DATABASE_URL}"
-# echo "🌍 RAILS_ENV=${RAILS_ENV}"
-
-# Jalankan migrasi paksa setiap start (sementara)
-if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
-  # echo "🚨 Running db:prepare and db:migrate"
+# Jalankan migrate hanya jika menjalankan rails server
+if [[ "$1" == "./bin/rails" && "$2" == "server" ]]; then
+  echo "🛠️ Running db:prepare..."
   bundle exec rails db:prepare
+
+  echo "🛠️ Running db:migrate..."
   bundle exec rails db:migrate
 fi
 
-exec "${@}"
+echo "✅ Entrypoint done, exec $@"
+exec "$@"
