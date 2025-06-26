@@ -1,4 +1,5 @@
 #!/bin/bash -e
+echo "🚀 docker-entrypoint running..."
 
 set -x
 
