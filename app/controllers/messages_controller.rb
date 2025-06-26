@@ -7,17 +7,13 @@ class MessagesController < ApplicationController
   def create
     @message = Message.new(message_params)
     if @message.save
-      ActionCable.server.broadcast(
-        "message_channel",
-        render_to_string(partial: "message", locals: { message: @message })
-      )
-      redirect_to root_path  # <--- ini penting
+      rendered = render_to_string(partial: "message", locals: { message: @message })
+      ActionCable.server.broadcast("message_channel", rendered)
+      render plain: "OK"
     else
-      render :index
+      render plain: "Gagal", status: :unprocessable_entity
     end
   end
-
-
 
 
   private

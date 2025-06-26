@@ -7,13 +7,14 @@ consumer.subscriptions.create("MessageChannel", {
 
   received(data) {
     console.log("📩 Received data:", data);
-
     const messages = document.getElementById("messages");
-    if (messages) {
-      messages.insertAdjacentHTML("beforeend", data);
-      messages.scrollTop = messages.scrollHeight;
-    } else {
-      console.log("🚨 Element #messages tidak ditemukan");
-    }
+    messages.insertAdjacentHTML("beforeend", data);
+
+    // ⬇️ Scroll otomatis ke bawah
+    messages.scrollTo({
+      top: messages.scrollHeight,
+      behavior: "smooth"
+    });
+
   }
 });

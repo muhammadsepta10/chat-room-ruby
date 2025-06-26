@@ -1,2 +1,1 @@
-// app/javascript/channels/index.js
-import "./message_channel"
+import "channels/message_channel"

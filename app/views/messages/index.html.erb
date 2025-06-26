@@ -4,11 +4,11 @@
   <%= render @messages %>
 </div>
 
-<%= form_with(model: @message, data: { turbo: false }) do |form| %>
+<form id="message-form">
   <div>
-    <%= form.text_area :content, rows: 3, placeholder: "Ketik pesan..." %>
+    <textarea name="message[content]" rows="3" placeholder="Ketik pesan..."></textarea>
   </div>
   <div>
-    <%= form.submit "Kirim" %>
+    <button type="submit">Kirim</button>
   </div>
-<% end %>
+</form>
